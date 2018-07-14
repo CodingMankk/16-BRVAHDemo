@@ -1,5 +1,6 @@
 package com.oztaking.www.a16_brvahdemo.MyOnClickDemo00;
 
+import android.animation.Animator;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
@@ -34,5 +35,13 @@ public class ClickAdapter extends BaseQuickAdapter<ClickItem, BaseViewHolder> {
                 .addOnClickListener(R.id.btn_num_home)//绑定布局子view的点击事件
                 .addOnLongClickListener(R.id.btn_num_home); //绑定布局子view的点击事件
 
+    }
+
+    @Override
+    protected void startAnim(Animator anim, int index) {
+        super.startAnim(anim, index);
+        if (index < 3){
+            anim.setStartDelay(index*150);
+        }
     }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ public class ClickActivity extends AppCompatActivity {
     private List<ClickItem> mDatas;
     private ClickAdapter mAdapter;
 
-//    private int mCount = 0;
+    //    private int mCount = 0;
     private ClickItem mClickItem;
 
     @Override
@@ -39,18 +41,106 @@ public class ClickActivity extends AppCompatActivity {
         Logger.init("ClickActivity").methodCount(0).hideThreadInfo();
 
         setTitle("ClickActivity");
-
         initData();
+        initView();
 
-        mRv = (RecyclerView) findViewById(R.id.rv);
         mRv.setLayoutManager(new LinearLayoutManager(ClickActivity.this, LinearLayoutManager
                 .VERTICAL, false));
-
-        //        mRv.addItemDecoration();
-
         mAdapter = new ClickAdapter(R.layout.item_home_1_view, mDatas);
         mRv.setAdapter(mAdapter);
+        //点击事件
+        AdapterClick();
+        //添加动画
+        addAnimator();
 
+        mAdapter.addHeaderView(getHeaderView());
+
+    }
+
+    private View getHeaderView() {
+
+        return null;
+    }
+
+    private void addAnimator() {
+        //        mAdapter.openLoadAnimation();
+        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        //        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        //        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+        //        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+
+        //动画默认只执行一次,如果想重复执行可设置
+        mAdapter.isFirstOnly(false);
+
+        //设置不显示动画数量--
+        mAdapter.setNotDoAnimationCount(2);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()) {
+            case R.id.ALPHAIN_menu:
+                //开启动画---默认为渐显效果
+                /**
+                 * 渐显
+                 */
+                mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+                break;
+
+            case R.id.SCALEIN_menu:
+                /**
+                 * 缩放
+                 */
+                mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+
+                break;
+
+            case R.id.SLIDEIN_LEFT_menu:
+                /**
+                 * 从左到右
+                 */
+                mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+                break;
+
+            case R.id.SLIDEIN_RIGHT_menu:
+                /**
+                 * 从右到左
+                 */
+                mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+                break;
+
+            case R.id.SLIDEIN_BOTTOM_menu:
+
+                /**
+                 * 从下到上
+                 */
+                mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+                break;
+
+            default:
+                break;
+        }
+
+//                return super.onOptionsItemSelected(item);
+        return true;
+    }
+
+    private void initView() {
+        mRv = (RecyclerView) findViewById(R.id.rv);
+    }
+
+    private void AdapterClick() {
         /**
          * 设置item点击事件
          */
@@ -90,7 +180,8 @@ public class ClickActivity extends AppCompatActivity {
                         .LENGTH_SHORT).show();
                 Logger.i("onItemChildClick : view" + view);
 
-//                TextView tv2 = (TextView) mAdapter.getViewByPosition(mRv, position, R.id.tv2);
+                //                TextView tv2 = (TextView) mAdapter.getViewByPosition(mRv,
+                // position, R.id.tv2);
 
                 ClickItem clickItem = mDatas.get(position);
                 int count = clickItem.getCount();
@@ -105,7 +196,7 @@ public class ClickActivity extends AppCompatActivity {
 
                         break;
                     case R.id.iv_num_home:
-                        if (count >=0){
+                        if (count >= 0) {
                             count++;
                             clickItem.setCount(count);
                         }
@@ -144,8 +235,8 @@ public class ClickActivity extends AppCompatActivity {
         mClickItem = new ClickItem("Content1", "子view-Image/button-click-longClick", null);
         mDatas.add(mClickItem);
 
-        for (int i=1; i<15;i++){
-            mDatas.add(new ClickItem("Title:"+i,"Content:"+i,null));
+        for (int i = 1; i < 15; i++) {
+            mDatas.add(new ClickItem("Title:" + i, "Content:" + i, null));
         }
     }
 

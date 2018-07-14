@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/ALPHAIN_menu"
+        android:orderInCategory="00"
+        android:title="ALPHAIN动画"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/SCALEIN_menu"
+        android:orderInCategory="10"
+        android:title="SCALEIN动画"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/SLIDEIN_BOTTOM_menu"
+        android:orderInCategory="80"
+        android:title="SLIDEIN_BOTTOM动画"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/SLIDEIN_LEFT_menu"
+        android:orderInCategory="20"
+        android:title="SLIDEIN_LEFT动画"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/SLIDEIN_RIGHT_menu"
+        android:orderInCategory="60"
+        android:title="SLIDEIN_RIGHT动画"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>
