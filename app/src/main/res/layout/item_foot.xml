@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_footer"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:background="#aaffffff"
+              android:layout_margin="3dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:background="#aacccc"
+        android:id="@+id/iv_footer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/add_icon"/>
+    <TextView
+        android:gravity="center"
+        android:background="#aacccc"
+        android:id="@+id/tv_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="我是footer"
+        android:textStyle="bold"
+        android:textColor="#00ffff"
+        android:textSize="40sp"/>
+
+</LinearLayout>

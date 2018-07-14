@@ -35,6 +35,18 @@ public class ClickAdapter extends BaseQuickAdapter<ClickItem, BaseViewHolder> {
                 .addOnClickListener(R.id.btn_num_home)//绑定布局子view的点击事件
                 .addOnLongClickListener(R.id.btn_num_home); //绑定布局子view的点击事件
 
+        helper.addOnClickListener(R.id.tv_header)
+                .addOnLongClickListener(R.id.iv_header)
+                .addOnClickListener(R.id.tv_footer)
+                .addOnLongClickListener(R.id.iv_footer)
+                .addOnClickListener(R.id.ll_header)
+                .addOnLongClickListener(R.id.ll_header)
+                .addOnClickListener(R.id.ll_footer)
+                .addOnLongClickListener(R.id.ll_footer);
+
+
+
+
     }
 
     @Override

@@ -7,7 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,6 +34,7 @@ public class ClickActivity extends AppCompatActivity {
 
     //    private int mCount = 0;
     private ClickItem mClickItem;
+    private View footerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +53,65 @@ public class ClickActivity extends AppCompatActivity {
         //点击事件
         AdapterClick();
         //添加动画
-        addAnimator();
+//        addAnimator();
 
-        mAdapter.addHeaderView(getHeaderView());
+        //增加头部
+        addHeaderView();
+        //添加尾部
+        addFootView();
+
 
     }
 
-    private View getHeaderView() {
+    private void addFootView() {
+        //添加尾部
+        View footerView = getLayoutInflater().inflate(R.layout.item_foot, (ViewGroup) mRv.getParent
+                (), false);
+        mAdapter.addFooterView(footerView);
+        footerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.removeAllFooterView();
+            }
+        });
 
-        return null;
     }
+
+    /**
+     * 单击最上面的headview会增加headview；
+     * 单击最下面的headview会删除当前的view
+     */
+    private void addHeaderView() {
+        //默认头部尾部都是占满一行，如果需要不占满可以配置
+        mAdapter.setHeaderViewAsFlow(false);
+        //默认出现了头部就不会显示Empty，和尾部，配置以下方法也支持同时显示：
+        mAdapter.setHeaderAndEmpty(true);
+
+        List<View> headerViewList = new ArrayList<>();
+
+        //添加头部
+        final View headerView = getLayoutInflater().inflate(R.layout.item_header, (ViewGroup) mRv
+                .getParent(), false);
+
+        mAdapter.addHeaderView(headerView);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final View headerView1 = getLayoutInflater().inflate(R.layout.item_header,
+                        (ViewGroup) mRv.getParent(), false);
+                mAdapter.addHeaderView(headerView1);
+                TextView headerTV = headerView.findViewById(R.id.tv_header);
+                headerView1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAdapter.removeHeaderView(v);
+                    }
+                });
+
+            }
+        });
+    }
+
 
     private void addAnimator() {
         //        mAdapter.openLoadAnimation();
@@ -87,8 +138,6 @@ public class ClickActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
         switch (item.getItemId()) {
             case R.id.ALPHAIN_menu:
                 //开启动画---默认为渐显效果
@@ -150,8 +199,17 @@ public class ClickActivity extends AppCompatActivity {
                 Toast.makeText(ClickActivity.this, "onItemClick" + position, Toast
                         .LENGTH_SHORT).show();
                 Logger.i("onItemClick");
-                ImageView imageView = (ImageView) mAdapter.getViewByPosition(mRv, position, R.id
-                        .iv_num_home);
+               switch(view.getId()){
+                    case R.id.ll_header:
+                        Logger.i("onItemClick:头部click");
+                         break;
+                   case R.id.ll_footer:
+                       Logger.i("onItemClick:尾部click");
+                       break;
+
+                    default:
+                         break;
+               }
 
             }
         });
@@ -164,7 +222,20 @@ public class ClickActivity extends AppCompatActivity {
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(ClickActivity.this, "onItemLongClick" + position, Toast
                         .LENGTH_SHORT).show();
+
                 Logger.i("onItemLongClick");
+
+                switch(view.getId()){
+                    case R.id.ll_header:
+                        Logger.i("onItemClick:头部LongClick");
+                        break;
+                    case R.id.ll_footer:
+                        Logger.i("onItemClick:尾部LongClick");
+                        break;
+                    default:
+                        break;
+                }
+
                 return false;
             }
         });
@@ -201,6 +272,22 @@ public class ClickActivity extends AppCompatActivity {
                             clickItem.setCount(count);
                         }
                         break;
+                    case R.id.iv_header:
+                        Logger.i("onItemClick:头部ImageView-Click");
+                        break;
+
+                    case R.id.tv_header:
+                        Logger.i("onItemClick:头部TextView-Click");
+                        break;
+
+                    case R.id.iv_footer:
+                        Logger.i("onItemClick:尾部ImageView-Click");
+                        break;
+
+                    case R.id.tv_footer:
+                        Logger.i("onItemClick:尾部TextView-Click");
+                        break;
+
                     default:
                         break;
                 }
@@ -221,6 +308,24 @@ public class ClickActivity extends AppCompatActivity {
                 Toast.makeText(ClickActivity.this, "onItemChildLongClick:" + position, Toast
                         .LENGTH_SHORT).show();
                 Logger.i("onItemChildLongClick");
+
+                switch(view.getId()){
+                    case R.id.iv_header:
+                        Logger.i("onItemClick:头部ImageView-LongClick");
+                        break;
+                    case R.id.tv_header:
+                        Logger.i("onItemClick:头部TextView-LongClick");
+                        break;
+                    case R.id.iv_footer:
+                        Logger.i("onItemClick:尾部ImageView-LongClick");
+                        break;
+                    case R.id.tv_footer:
+                        Logger.i("onItemClick:尾部TextView-LongClick");
+                        break;
+
+                    default:
+                          break;
+                }
                 return false;
             }
         });
@@ -235,10 +340,13 @@ public class ClickActivity extends AppCompatActivity {
         mClickItem = new ClickItem("Content1", "子view-Image/button-click-longClick", null);
         mDatas.add(mClickItem);
 
-        for (int i = 1; i < 15; i++) {
+
+
+        for (int i = 1; i < 3; i++) {
             mDatas.add(new ClickItem("Title:" + i, "Content:" + i, null));
         }
     }
+
 
 
 }
