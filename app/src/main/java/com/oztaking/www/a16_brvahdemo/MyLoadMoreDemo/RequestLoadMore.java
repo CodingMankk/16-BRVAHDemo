@@ -3,8 +3,11 @@ package com.oztaking.www.a16_brvahdemo.MyLoadMoreDemo;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /***********************************************
  * 文 件 名: 
@@ -24,6 +27,10 @@ public class RequestLoadMore extends Thread{
 
     private RequestCallBackLoadMore mCallBackLoadMore;//接口
 
+    //主要为了模拟mCallBack.fail
+    private int tempPageSize =0;
+    private boolean isFirstError = false;
+
     public RequestLoadMore(int requestPageSize,RequestCallBackLoadMore callBackLoadMore){
         this.mRequestPageSize = requestPageSize;
         this.mCallBackLoadMore = callBackLoadMore;
@@ -32,16 +39,31 @@ public class RequestLoadMore extends Thread{
 
     @Override
     public void run() {
+
+        //延时500ms
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         if (mRequestPageSize == 0){
             return;
         }
+
         mHandler.post(new Runnable() {
             @Override
             public void run() {
+
+//                mCallBackLoadMore.onFailed(new RuntimeException("数据加载失败"));
+
                 List<LoadMoreItem> mNewData = new ArrayList<>();
                 for (int i=0; i<mRequestPageSize;i++){
-                    LoadMoreItem newItem = new LoadMoreItem("newTitle" + i, "newContent" +
-                            i, null);
+                    Random random = new Random();
+                    int randomInt = random.nextInt(100);
+                    Logger.d(randomInt);
+                    LoadMoreItem newItem = new LoadMoreItem("newTitle" + randomInt, "newContent" +
+                            randomInt, null);
                     mNewData.add(newItem);
                 }
                 mCallBackLoadMore.onSuccess(mNewData);

@@ -29,6 +29,8 @@ public class LoadMoreAdapter extends BaseQuickAdapter<LoadMoreItem,BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, LoadMoreItem item) {
         helper.setText(R.id.tv1_loaderMore,item.getContent1())
-                .setText(R.id.tv2_loaderMore,item.getContent2());
+                .setText(R.id.tv2_loaderMore,item.getContent2())
+                .setText(R.id.tv_loaderMore,String.valueOf(helper.getLayoutPosition()));
+
     }
 }
