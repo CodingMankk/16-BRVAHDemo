@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/item_bg"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true">
+
+
+
+<RelativeLayout
+    android:id="@+id/rl1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    android:padding="10dp"
+    android:background="@drawable/touch_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:background="@drawable/textview_bg"
+        android:textColor="#ff0000"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:text="0"
+        android:id="@+id/tv_multis"
+        android:layout_width="100dp"
+        android:layout_height="120dp"/>
+
+    <TextView
+        android:id="@+id/tv1_multis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/tv_multis"
+        android:layout_toRightOf="@+id/tv_multis"
+        android:text="Item单击/长按事件"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv2_multis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/tv1_multis"
+        android:layout_alignLeft="@+id/tv1_multis"
+        android:layout_below="@+id/tv1_multis"
+        android:textStyle="bold"
+        android:text="子view-Image长按事件"
+        android:textColor="#000000"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/layout_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv1_multis"
+        android:layout_below="@id/tv2_multis"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@mipmap/ic_launcher_round"
+            android:id="@+id/iv_num_multis"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_item_child"/>
+        <Button
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@drawable/selector_item_child"
+            android:id="@+id/btn_num_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="按钮"/>
+    </LinearLayout>
+
+</RelativeLayout>
+</android.support.v7.widget.CardView>
