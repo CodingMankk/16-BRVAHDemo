@@ -36,6 +36,13 @@ public class ClickActivity extends AppCompatActivity {
     private ClickItem mClickItem;
     private View footerView;
 
+
+    private boolean isErr;
+
+    private static final int TOTAL_COUNTER = 20;
+    private static final int PAGER_SIZE = 5;
+    private static final int PRE_LOAD_POSITION = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +66,55 @@ public class ClickActivity extends AppCompatActivity {
         addHeaderView();
         //添加尾部
         addFootView();
+
+
+
+
+
+        final int delayMills = 100;
+        BaseQuickAdapter.RequestLoadMoreListener loadMoreListener = new BaseQuickAdapter
+                .RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mRv.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int mCurrentCounter = mAdapter.getItemCount();
+                        if (mCurrentCounter > TOTAL_COUNTER){
+                            //数据加载完毕
+                            mAdapter.loadMoreEnd();
+                        }else{
+                            if(isErr){
+//                                mAdapter.addData(DataServer.getSampleData(PAGER_SIZE));
+                                mCurrentCounter = mAdapter.getData().size();
+                                mAdapter.loadMoreComplete();
+                            }else{
+                                //获取更多数据失败
+                                isErr = true;
+                                Toast.makeText(ClickActivity.this, "", Toast.LENGTH_SHORT).show();
+                                mAdapter.loadMoreFail();
+                            }
+                        }
+                    }
+                },delayMills);
+            }
+        };
+
+        // 滑动最后一个Item的时候回调onLoadMoreRequested方法
+        mAdapter.setOnLoadMoreListener(loadMoreListener,mRv);
+
+        //默认第一次加载会进入回调，如果不需要可以配置：
+        mAdapter.disableLoadMoreIfNotFullPage();
+
+        // 当列表滑动到倒数第N个Item的时候(默认是1)回调onLoadMoreRequested方法
+        mAdapter.setPreLoadNumber(PRE_LOAD_POSITION);
+
+//        mAdapter.loadMoreComplete();
+//        mAdapter.loadMoreFail();
+
+        //设置自定义布局
+        mAdapter.setLoadMoreView(new CustomMoreView());
+
 
 
     }
@@ -86,8 +142,6 @@ public class ClickActivity extends AppCompatActivity {
         mAdapter.setHeaderViewAsFlow(false);
         //默认出现了头部就不会显示Empty，和尾部，配置以下方法也支持同时显示：
         mAdapter.setHeaderAndEmpty(true);
-
-        List<View> headerViewList = new ArrayList<>();
 
         //添加头部
         final View headerView = getLayoutInflater().inflate(R.layout.item_header, (ViewGroup) mRv
