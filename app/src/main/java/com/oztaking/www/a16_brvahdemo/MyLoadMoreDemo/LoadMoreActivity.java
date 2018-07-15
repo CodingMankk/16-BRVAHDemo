@@ -44,6 +44,9 @@ public class LoadMoreActivity extends Activity{
         initView();
         initAdapter();
         initSwipeRefreshLayout();
+
+        //替换加载布局
+        mAdapter.setLoadMoreView(new CustomMoreView());
     }
 
     private void initLoadMore() {
@@ -55,7 +58,7 @@ public class LoadMoreActivity extends Activity{
         });
     }
 
-    private static final int LOAD_MORE_SIZE = 6;
+    private static final int LOAD_MORE_SIZE = 3;
     private void loadMore() {
         new RequestLoadMore(LOAD_MORE_SIZE, new RequestCallBackLoadMore() {
             @Override

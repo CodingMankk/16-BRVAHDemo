@@ -1,6 +1,7 @@
-package com.oztaking.www.a16_brvahdemo.MyOnClickDemo00;
+package com.oztaking.www.a16_brvahdemo.MyLoadMoreDemo;
 
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.oztaking.www.a16_brvahdemo.R;
 
 /***********************************************
  * 文 件 名: 
@@ -11,25 +12,25 @@ import com.chad.library.adapter.base.loadmore.LoadMoreView;
  * 修改备注：
  ***********************************************/
 
-class CustomMoreView extends LoadMoreView {
+public class CustomMoreView extends LoadMoreView {
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.view_load_more;
     }
 
     @Override
     protected int getLoadingViewId() {
-        return 0;
+        return R.id.load_more_loading_view;
     }
 
     @Override
     protected int getLoadFailViewId() {
-        return 0;
+        return R.id.load_more_load_fail_view;
     }
 
     @Override
     protected int getLoadEndViewId() {
-        return 0;
+        return R.id.load_more_load_end_view;
     }
 
     /**

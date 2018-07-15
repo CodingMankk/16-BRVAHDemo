@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
+import com.oztaking.www.a16_brvahdemo.MyLoadMoreDemo.CustomMoreView;
 import com.oztaking.www.a16_brvahdemo.R;
 
 import java.util.ArrayList;
