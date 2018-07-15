@@ -5,6 +5,8 @@
     <!--<activity android:name=".BRVADDemo.ItemClickActivity">-->
     <!--<activity android:name=".MyOnClickDemo00.ClickActivity">-->
     <!--<activity android:name=".BRVADLoadMoreDemo.PullToRefreshUseActivity">-->
+    <!--<activity android:name=".MyLoadMoreDemo.LoadMoreActivity">-->
+    <!--<activity android:name=".MyUpFetchDemo.UpFetchActivity">-->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyLoadMoreDemo.LoadMoreActivity">
+        <activity android:name=".MySectionDemo.SectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
